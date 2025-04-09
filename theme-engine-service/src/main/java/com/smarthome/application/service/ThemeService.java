@@ -62,7 +62,7 @@ public class ThemeService {
             case HIGH -> {
                 addThemePoints(mapThemePoints, HomeTheme.CHILL, 1);
                 addThemePoints(mapThemePoints, HomeTheme.SOLITUDE, 1);
-                addThemePoints(mapThemePoints, HomeTheme.STRESS_RELIEF, 1);
+                addThemePoints(mapThemePoints, HomeTheme.STRESS_RELIEF, 2);
             }
             case NORMAL -> addThemePoints(mapThemePoints, HomeTheme.SOLITUDE, 1);
         }
