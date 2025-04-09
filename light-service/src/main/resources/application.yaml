@@ -1,0 +1,23 @@
+server:
+  servlet:
+    context-path: /api
+
+spring:
+  application:
+    name: Smart Home
+  mvc:
+    static-path-pattern: /api/swagger*
+springdoc:
+  api-docs:
+    path: /swagger-ui/api-docs
+
+kafka:
+  enabled: true
+  max-attempts: 5
+  pooling-interval: 5000
+  bootstrap:
+    servers: kafka:9092
+
+security:
+  api-key-service-header: api-key
+  api-key-value: light-api-key

@@ -1,0 +1,75 @@
+server:
+  servlet:
+    context-path: /api/smart-home
+spring:
+  application:
+    name: Smart Home
+  mvc:
+    static-path-pattern: /api/smart-home/swagger*
+
+# WARNING: For testing purposes this is an overkill that simulates some form of MITM protection...
+#  In real life scenario that kind of data should be kept in secure vault/variable stores/API handling key rotations and so on.
+#  DO NOT use them like that. Pretty please!
+security:
+  api-key-service-header: api-key
+  services:
+    theme-dispatcher:
+      url: http://theme-dispatcher:8080/api/theme-dispatcher/device
+      api-key-value: theme-api-key
+      health-endpoint: /health
+
+home-theme-properties:
+  ROMANTIC:
+    temperature: 25
+    musicTheme: sink-titanic
+    musicVolume: 7
+    lightMode: 5
+    lightsPercentage: 66
+  CHILL:
+    temperature: 25
+    musicTheme: ice-ice-baby
+    musicVolume: 6
+    lightMode: 5
+    lightsPercentage: 66
+  STRESS_RELIEF:
+    temperature: 25
+    musicTheme: never-gonna-let-you-down
+    musicVolume: 5
+    lightMode: 5
+    lightsPercentage: 66
+  PARTY:
+    temperature: 25
+    musicTheme: party-playlist
+    musicVolume: 9
+    lightMode: 5
+    lightsPercentage: 66
+  SOLITUDE:
+    temperature: 25
+    musicTheme: i-stand-alone
+    musicVolume: 4
+    lightMode: 5
+    lightsPercentage: 66
+
+kafka:
+  enabled: true
+  max-attempts: 5
+  pooling-interval: 5000
+  bootstrap:
+    servers: kafka:9092
+  topic:
+    home_theme:
+      name: home-theme-topic
+      partitionsCount: 1
+      groupId: home-theme-group
+    climate_change:
+      name: climate-topic
+      partitionsCount: 1
+      groupId: climate-group
+    light_change:
+      name: light-topic
+      partitionsCount: 1
+      groupId: light-group
+    music_change:
+      name: music-topic
+      partitionsCount: 1
+      groupId: home-theme-group

@@ -1,0 +1,10 @@
+server:
+  port: 8094
+
+kafka:
+  bootstrap:
+    servers: localhost:9092
+
+security:
+  api-key-service-header: api-key
+  api-key-value: light-api-key-ide

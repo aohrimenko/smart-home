@@ -1,0 +1,68 @@
+version: "3"
+
+services:
+  kafka:
+    image: confluentinc/cp-kafka:7.6.0
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENERS: PLAINTEXT://:9092
+#     To be able to run the kafka locally:
+#     KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    depends_on:
+      - zookeeper
+    networks:
+      - smart-home
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.6.0
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - smart-home
+
+  theme-engine:
+    image: theme-engine-service:1.0.0
+    ports:
+      - "8080:8080"
+    depends_on:
+      - kafka
+    networks:
+      - smart-home
+
+  theme-dispatcher:
+    image: theme-dispatcher-service:1.0.0
+    networks:
+      - smart-home
+
+  music-service:
+    image: music-service:1.0.0
+    depends_on:
+      - theme-dispatcher
+    networks:
+      - smart-home
+
+  climate-service:
+    image: climate-service:1.0.0
+    depends_on:
+      - theme-dispatcher
+    networks:
+      - smart-home
+
+  light-service:
+    image: light-service:1.0.0
+    depends_on:
+      - theme-dispatcher
+    networks:
+      - smart-home
+
+networks:
+  smart-home:
+    driver: bridge

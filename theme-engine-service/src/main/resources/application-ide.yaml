@@ -1,0 +1,16 @@
+server:
+  port: 8080
+
+# WARNING: For testing purposes this is an overkill that simulates some form of MITM protection...
+#  In real life scenario that kind of data should be kept in secure vault/variable stores/API handling key rotations and so on.
+#  DO NOT use them like that. Pretty please!
+security:
+  api-key-service-header: api-key
+  services:
+    theme-dispatcher:
+      url: http://localhost:8090/api/theme-dispatcher/device
+      api-key-value: theme-api-key-ide
+
+kafka:
+  bootstrap:
+    servers: localhost:9092

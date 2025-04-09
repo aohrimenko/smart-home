@@ -1,0 +1,10 @@
+server:
+  port: 8092
+
+kafka:
+  bootstrap:
+    servers: localhost:9092
+
+security:
+  api-key-service-header: api-key
+  api-key-value: climate-api-key-ide

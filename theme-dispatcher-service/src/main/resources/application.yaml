@@ -1,0 +1,48 @@
+server:
+  servlet:
+    context-path: /api/theme-dispatcher
+
+spring:
+  application:
+    name: Smart Home Climate Service
+  mvc:
+    static-path-pattern: /api/theme-dispatcher/swagger*
+
+# WARNING: As much as those keys provide MITM protection...
+#  In real life scenario those api-keys should be kept in secure vault/variable store. DO NOT use them like that.
+security:
+  api-key-service-header: api-key
+  api-key-value: theme-api-key
+  services:
+    music-service:
+      url: http://music-service:8080/api/service
+      api-key-value: music-api-key
+      health-endpoint: /health
+    climate-service:
+      url: http://climate-service:8080/api/service
+      api-key-value: climate-api-key
+      health-endpoint: /health
+    light-service:
+      url: http://light-service:8080/api/service
+      api-key-value: light-api-key
+      health-endpoint: /health
+
+kafka:
+  enabled: true
+  max-attempts: 5
+  pooling-interval: 5000
+  bootstrap:
+    servers: kafka:9092
+  topic:
+    home_theme:
+      name: home-theme-topic
+      groupId: home-theme-group
+    climate_change:
+      name: climate-topic
+      groupId: climate-group
+    light_change:
+      name: light-topic
+      groupId: light-group
+    music_change:
+      name: music-topic
+      groupId: home-theme-group

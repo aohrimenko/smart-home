@@ -1,0 +1,25 @@
+server:
+  port: 8090
+
+# WARNING: As much as those keys provide MITM protection...
+#  In real life scenario those api-keys should be kept in secure vault/variable store. DO NOT use them like that.
+security:
+  api-key-service-header: api-key
+  api-key-value: theme-api-key-ide
+  services:
+    music-service:
+      url: http://localhost:8093/api/service
+      api-key-value: music-api-key-ide
+      health-endpoint: /health
+    climate-service:
+      url: http://localhost:8092/api/service
+      api-key-value: climate-api-key-ide
+      health-endpoint: /health
+    light-service:
+      url: http://localhost:8094/api/service
+      api-key-value: light-api-key-ide
+      health-endpoint: /health
+
+kafka:
+  bootstrap:
+    servers: localhost:9092
